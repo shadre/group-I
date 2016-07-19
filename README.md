@@ -46,5 +46,5 @@ Starting development server:
 * [Kamil Dębicki](https://github.com/kamil506)
 * [Alicja Gałkiewicz](https://github.com/agalkiewicz)
 * [Adrian Korzeniowski](https://github.com/Schocker)
-* [Madgalena Nodzyńska](https://github.com/nodzy)
-* [Shadi Rezek](https://github.com/shadrtk)
+* [Magdalena Nodzyńska](https://github.com/nodzy)
+* [Shadi Rezek](https://github.com/shadrk)
