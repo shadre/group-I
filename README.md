@@ -21,7 +21,7 @@ environment and a PostgreSQL installed. On macOS you can install it using
 And on Debian based distros:
 
     sudo apt-get update
-    sudo apt-get install postgresql postgresql-contrib
+    sudo apt-get install postgresql postgresql-contrib libpq-dev
 
 Update `rubygems` and install [`Bundler`](http://bundler.io):
 
@@ -32,6 +32,12 @@ Update `rubygems` and install [`Bundler`](http://bundler.io):
 App's dependencies can be installed by executing in app's root dir:
 
     bundle install
+
+With all dependencies installed and the PostgreSQL running, we can set up our
+database:
+
+    bundle exec rails db:create
+    bundle exec rails db:migrate
 
 ### Development:
 
