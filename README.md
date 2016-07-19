@@ -43,6 +43,10 @@ Starting development server:
 
     bundle exec rails server
 
+### Contributing
+
+See: [GitHub Workflow](doc/github_workflow.md)
+
 ## Authors:
 
 * [Kacper Brańka](https://github.com/Kacper3331)
