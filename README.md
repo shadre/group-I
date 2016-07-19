@@ -3,6 +3,10 @@
 Wizlist is an app that allows creating and managing a basic gift registry.
 Wizlist is being developed during the Ragnarson's 2016 Internship program.
 
+## Functionality:
+
+See: [list of user stories](doc/user_stories.md).
+
 ## Getting started:
 
 ### Dependencies:
