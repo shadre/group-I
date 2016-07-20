@@ -8,6 +8,7 @@ gem 'puma', '~> 3.4'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 3.0'
 gem 'jquery-rails'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
