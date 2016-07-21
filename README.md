@@ -7,6 +7,10 @@ Wizlist is being developed during the Ragnarson's 2016 Internship program.
 
 See: [list of user stories](doc/user_stories.md).
 
+## Check out the demo on Heroku:
+
+https://wizlist.herokuapp.com
+
 ## Getting started:
 
 ### Dependencies:
