@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  wishlists:
+    create:
+      success: "Wishlist was successfully created!"
