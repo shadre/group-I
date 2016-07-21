@@ -1,5 +1,12 @@
-ActiveRecord::Schema.define(version: 20160719122949) do
+ActiveRecord::Schema.define(version: 20160720120421) do
   enable_extension "plpgsql"
+
+  create_table "items", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.text     "description", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",              default: "", null: false
