@@ -17,6 +17,10 @@ group :development, :test do
   gem 'rubocop', require: false
 end
 
+group :test do
+  gem 'shoulda-matchers'
+end
+
 group :development do
   gem 'web-console'
 end

@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe User do
   let(:valid_user_params) { { email: "bob@example.org", password: "secret" } }
 
+  it { is_expected.to have_many :wishlists }
+
   it "is valid with valid params" do
     expect(User.new(valid_user_params)).to be_valid
   end
