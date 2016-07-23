@@ -1,57 +1,60 @@
 require "rails_helper"
 
 RSpec.describe User do
-  let(:valid_user_params) { { email: "bob@example.org", password: "secret" } }
-
   it { is_expected.to have_many :wishlists }
 
   it "is valid with valid params" do
-    expect(User.new(valid_user_params)).to be_valid
+    expect(build(:user)).to be_valid
+  end
+
+  it "has associated wishlists that should be destroyed" do
+    wishlist = create(:wishlist)
+    expect { wishlist.user.destroy }.to change { Wishlist.count }.by(-1)
   end
 
   context "is invalid" do
     context "with an email that's" do
       it "nil" do
-        expect(User.new(valid_user_params.merge!(email: nil))).not_to be_valid
+        expect(build(:user, email: nil)).not_to be_valid
       end
 
       it "empty" do
-        expect(User.new(valid_user_params.merge!(email: ""))).not_to be_valid
+        expect(build(:user, email: "")).not_to be_valid
       end
 
       it "blank" do
-        expect(User.new(valid_user_params.merge!(email: "  "))).not_to be_valid
+        expect(build(:user, email: "  ")).not_to be_valid
       end
 
       it "mangled" do
-        expect(User.new(valid_user_params.merge!(email: "bob-example@"))).not_to be_valid
+        expect(build(:user, email: "bob-example@")).not_to be_valid
       end
 
       it "non-unique" do
-        User.create(valid_user_params)
-        expect(User.new(valid_user_params.merge!(email: valid_user_params[:email]))).not_to be_valid
+        user = create(:user)
+        expect(build(:user, email: user.email)).not_to be_valid
       end
     end
 
     context "with a password that's" do
       it "nil" do
-        expect(User.new(valid_user_params.merge!(password: nil))).not_to be_valid
+        expect(build(:user, password: nil)).not_to be_valid
       end
 
       it "empty" do
-        expect(User.new(valid_user_params.merge!(password: ""))).not_to be_valid
+        expect(build(:user, password: "")).not_to be_valid
       end
 
       it "blank" do
-        expect(User.new(valid_user_params.merge!(password: "  "))).not_to be_valid
+        expect(build(:user, password: "  ")).not_to be_valid
       end
 
       it "shorter than 6 chars" do
-        expect(User.new(valid_user_params.merge!(password: "12345"))).not_to be_valid
+        expect(build(:user, password: "12345")).not_to be_valid
       end
 
       it "longer than 128 chars" do
-        expect(User.new(valid_user_params.merge!(password: "a" * 129))).not_to be_valid
+        expect(build(:user, password: "a" * 129)).not_to be_valid
       end
     end
   end

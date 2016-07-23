@@ -1,8 +1,7 @@
 require "rails_helper"
 
 RSpec.describe WishlistsController do
-  let(:valid_parameters) { { name: "Foo", description: "Foo" } }
-  let(:invalid_parameters) { { name: "", description: "" } }
+  let(:valid_parameters) { attributes_for(:wishlist, user_id: create(:user).id) }
 
   describe "GET #new" do
     before do
@@ -49,7 +48,7 @@ RSpec.describe WishlistsController do
 
     context "with invalid parameters" do
       before do
-        request_post(invalid_parameters)
+        request_post(attributes_for(:wishlist, name: nil))
       end
 
       it "returns 200 HTTP status code" do
@@ -62,7 +61,7 @@ RSpec.describe WishlistsController do
 
       it "doesn't create new wishlist" do
         expect do
-          post :create, params: { wishlist: invalid_parameters }
+          post :create, params: { wishlist: attributes_for(:wishlist, description: "") }
         end.to_not change(Wishlist, :count)
       end
 

@@ -15,6 +15,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'reek', require: false
   gem 'rubocop', require: false
+  gem 'factory_girl_rails'
 end
 
 group :test do
