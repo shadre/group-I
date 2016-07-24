@@ -1,83 +1,123 @@
 require "rails_helper"
 
 RSpec.describe WishlistsController do
-  let(:valid_parameters) { attributes_for(:wishlist, user_id: create(:user).id) }
+  context "when user is logged in" do
+    before(:each) { sign_in_user }
 
-  describe "GET #new" do
-    before do
-      request_get
+    describe "GET #index" do
+      before(:each) { get :index }
+
+      it "returns 200 OK" do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "renders the 'index' template" do
+        expect(response).to render_template(:index)
+      end
     end
 
-    it "returns 200 HTTP status code" do
-      expect(response).to have_http_status(200)
+    describe "GET #new" do
+      before(:each) { get :new }
+
+      it "returns 200 OK" do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "renders the 'new' template" do
+        expect(response).to render_template(:new)
+      end
+
+      it "assigns a new wishlist as @wishlist" do
+        expect(assigns(:wishlist)).to be_a_new(Wishlist)
+      end
     end
 
-    it "renders the 'new' template" do
-      expect(response).to render_template(:new)
-    end
+    describe "POST #create" do
+      context "with valid parameters" do
+        before(:each) { post_create }
 
-    it "assigns a new wishlist as @wishlist" do
-      expect(assigns(:wishlist)).to be_a_new(Wishlist)
+        it "assigns an instance variable under @wishlist" do
+          expect(assigns(:wishlist)).to be_a(Wishlist)
+        end
+
+        it "persists the new wishlist" do
+          expect(assigns(:wishlist)).to be_persisted
+          expect { post_create }.to change(Wishlist, :count).by(1)
+        end
+
+        it "returns a redirect" do
+          expect(response).to be_redirect
+        end
+
+        it "redirects to the wishlists index page" do
+          expect(response).to redirect_to(wishlists_path)
+        end
+      end
+
+      context "with invalid parameters" do
+        before(:each) { post_create(name: nil) }
+
+        it "returns 200 OK" do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "assigns an instance variable under @wishlist" do
+          expect(assigns(:wishlist)).to be_a(Wishlist)
+        end
+
+        it "doesn't persist the wishlist" do
+          expect(assigns(:wishlist)).not_to be_persisted
+          expect { post_create(name: nil) }.to_not change(Wishlist, :count)
+        end
+
+        it "renders the 'new' template" do
+          expect(response).to render_template(:new)
+        end
+      end
     end
   end
 
-  describe "POST #create" do
-    context "with valid parameters" do
-      before do
-        request_post(valid_parameters)
+  context "when not logged in" do
+    shared_examples "redirects to the 'sign_in' page" do
+      it "returns a 3xx redirect" do
+        expect(response).to be_redirect
       end
 
-      it "creates a new Wishlist" do
-        expect do
-          post :create, params: { wishlist: valid_parameters }
-        end.to change(Wishlist, :count).by(1)
-      end
-
-      it "assigns a newly created wishlist as @wishlist" do
-        expect(assigns(:wishlist)).to be_a(Wishlist)
-      end
-
-      it "checks if assigned wishlist as @wishlist is persisted" do
-        expect(assigns(:wishlist)).to be_persisted
-      end
-
-      it "redirects to the form page" do
-        expect(response).to redirect_to(new_wishlist_path)
+      it "redirects to the 'sign_in' page" do
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
-    context "with invalid parameters" do
-      before do
-        request_post(attributes_for(:wishlist, name: nil))
+    describe "GET #index" do
+      before(:each) { get :index }
+
+      include_examples "redirects to the 'sign_in' page"
+    end
+
+    describe "GET #new" do
+      before(:each) { get :new }
+
+      include_examples "redirects to the 'sign_in' page"
+    end
+
+    describe "POST #create" do
+      context "with valid parameters" do
+        before(:each) { post_create }
+
+        include_examples "redirects to the 'sign_in' page"
       end
 
-      it "returns 200 HTTP status code" do
-        expect(response).to have_http_status(200)
-      end
+      context "with invalid parameters" do
+        before(:each) { post_create(name: nil) }
 
-      it "assigns a newly created but unsaved wishlist as @wishlist" do
-        expect(assigns(:wishlist)).to be_a_new(Wishlist)
-      end
-
-      it "doesn't create new wishlist" do
-        expect do
-          post :create, params: { wishlist: attributes_for(:wishlist, description: "") }
-        end.to_not change(Wishlist, :count)
-      end
-
-      it "re-renders the 'new' template" do
-        expect(response).to render_template(:new)
+        include_examples "redirects to the 'sign_in' page"
       end
     end
   end
 
   private
 
-  def request_get
-    get :new
-  end
-
-  def request_post(parameters)
-    post :create, params: { wishlist: parameters }
+  def post_create(custom = {})
+    post :create, params: { wishlist: attributes_for(:wishlist, custom) }
   end
 end

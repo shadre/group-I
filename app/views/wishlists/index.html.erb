@@ -1,0 +1,13 @@
+<h1>Wishlists</h1>
+<div>
+  <ul>
+    <% @wishlists.each do |wishlist| %>
+      <li>
+        <%= link_to wishlist.name, "#" -%>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to "Create new wishlist",  new_wishlist_path -%>
+    </li>
+  </ul>
+</div>

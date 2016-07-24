@@ -47,6 +47,7 @@ GEM
     bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.5)
+    cancancan (1.15.0)
     codeclimate-engine-rb (0.3.1)
       virtus (~> 1.0)
     coercible (1.0.0)
@@ -206,6 +207,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  cancancan (~> 1.15)
   devise
   factory_girl_rails
   jquery-rails

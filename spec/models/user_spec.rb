@@ -1,3 +1,4 @@
+require "cancan/matchers"
 require "rails_helper"
 
 RSpec.describe User do
@@ -57,5 +58,16 @@ RSpec.describe User do
         expect(build(:user, password: "a" * 129)).not_to be_valid
       end
     end
+  end
+
+  describe "abilites" do
+    let(:bob) { create(:bob) }
+    let(:alice) { create(:alice) }
+
+    subject(:ability) { Ability.new(bob) }
+
+    it { is_expected.to be_able_to(:create, Wishlist) }
+    it { is_expected.to be_able_to(:read, bob.wishlists.first) }
+    it { is_expected.not_to be_able_to(:read, alice.wishlists.first) }
   end
 end
