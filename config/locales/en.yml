@@ -20,7 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  generic_error: "Oops! Something went wrong."
   wishlists:
     create:
       success: "Wishlist was successfully created!"
+    destroy:
+      success: "Wishlist was successfully deleted."

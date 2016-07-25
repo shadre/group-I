@@ -75,6 +75,37 @@ RSpec.describe WishlistsController do
         end
       end
     end
+
+    describe "DELETE #destroy" do
+      context "when wishlist exists" do
+        let!(:wishlist) { create(:wishlist, user: controller.current_user) }
+        subject! { delete_destroy(id: wishlist.id) }
+
+        it "deletes the wishlist" do
+          expect { Wishlist.find(wishlist.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        it "redirects to the wishlists index page" do
+          is_expected.to redirect_to(wishlists_url)
+        end
+
+        it "shows a notice" do
+          expect(flash[:notice]).not_to be_nil
+        end
+      end
+
+      context "when wishlist doesn't exist" do
+        subject! { delete_destroy(id: -1) }
+
+        it "redirects to the wishlists index page" do
+          is_expected.to redirect_to(wishlists_path)
+        end
+
+        it "shows an error" do
+          expect(flash[:alert]).not_to be_nil
+        end
+      end
+    end
   end
 
   context "when not logged in" do
@@ -116,6 +147,10 @@ RSpec.describe WishlistsController do
   end
 
   private
+
+  def delete_destroy(id: nil)
+    delete :destroy, params: { id: id }
+  end
 
   def post_create(custom = {})
     post :create, params: { wishlist: attributes_for(:wishlist, custom) }

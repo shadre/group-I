@@ -4,6 +4,7 @@
     <% @wishlists.each do |wishlist| %>
       <li>
         <%= link_to wishlist.name, "#" -%>
+        <%= button_to "Delete", wishlist, method: :delete -%>
       </li>
     <% end %>
     <li>

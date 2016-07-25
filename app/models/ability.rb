@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     if user
-      can [:create, :read], Wishlist, user_id: user.id
+      can [:create, :read, :destroy], Wishlist, user_id: user.id
     end
   end
 end
