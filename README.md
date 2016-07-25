@@ -40,8 +40,7 @@ App's dependencies can be installed by executing in app's root dir:
 With all dependencies installed and the PostgreSQL running, we can set up our
 database:
 
-    bundle exec rails db:create
-    bundle exec rails db:migrate
+    bundle exec rails db:setup
 
 ### Development:
 

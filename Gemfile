@@ -10,6 +10,7 @@ gem 'uglifier', '>= 3.0'
 gem 'jquery-rails'
 gem 'devise'
 gem 'cancancan', '~> 1.15'
+gem 'faker'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
