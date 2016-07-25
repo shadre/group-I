@@ -70,5 +70,7 @@ RSpec.describe User do
     it { is_expected.to be_able_to(:read, bob.wishlists.first) }
     it { is_expected.not_to be_able_to(:read, alice.wishlists.first) }
     it { is_expected.not_to be_able_to(:destroy, alice.wishlists.first) }
+    it { is_expected.to be_able_to(:update, bob.wishlists.first) }
+    it { is_expected.not_to be_able_to(:update, alice.wishlists.first) }
   end
 end

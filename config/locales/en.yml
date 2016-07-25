@@ -6,3 +6,5 @@ en:
       success: "Wishlist was successfully created!"
     destroy:
       success: "Wishlist was successfully deleted."
+    update:
+      success: "Wishlist was successfully updated."

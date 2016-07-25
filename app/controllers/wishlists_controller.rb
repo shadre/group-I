@@ -1,5 +1,6 @@
 class WishlistsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_wishlist!, only: %i(destroy edit update)
 
   def index
     authorize! :index, Wishlist
@@ -22,12 +23,27 @@ class WishlistsController < ApplicationController
   end
 
   def destroy
-    @wishlist = Wishlist.find(params[:id])
     authorize! :destroy, @wishlist
     @wishlist.destroy!
     redirect_to wishlists_path, notice: t(".success")
-  rescue CanCan::AccessDenied, ActiveRecord::RecordNotFound, ActiveRecord::RecordNotDestroyed
+  rescue CanCan::AccessDenied, ActiveRecord::RecordNotDestroyed
     redirect_to wishlists_path, alert: t("generic_error")
+  end
+
+  def edit
+    authorize! :edit, @wishlist
+  rescue CanCan::AccessDenied
+    redirect_to wishlists_path, alert: t("generic_error")
+  end
+
+  def update
+    authorize! :update, @wishlist
+    @wishlist.update_attributes!(wishlist_params)
+    redirect_to wishlists_path, notice: t(".success")
+  rescue CanCan::AccessDenied
+    redirect_to wishlists_path, alert: t("generic_error")
+  rescue ActiveRecord::RecordInvalid
+    render :edit
   end
 
   private
@@ -36,5 +52,11 @@ class WishlistsController < ApplicationController
     params[:wishlist] ||= {}
     params[:wishlist][:user_id] = current_user.id
     params.require(:wishlist).permit(:user_id, :name, :description)
+  end
+
+  def set_wishlist!
+    @wishlist = Wishlist.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to wishlists_path, alert: t("generic_error")
   end
 end
