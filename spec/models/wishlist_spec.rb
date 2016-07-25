@@ -26,4 +26,16 @@ RSpec.describe Wishlist do
       expect(build(:wishlist, token: existing_wishlist.token)).to be_invalid
     end
   end
+
+  describe "associations" do
+    it "has associated items that should be destroyed" do
+      item = create(:item)
+      expect { item.wishlist.destroy }.to change { Item.count }.by(-1)
+    end
+
+    it "has user_id" do
+      wishlist = create(:wishlist)
+      expect(wishlist.user_id).not_to be_nil
+    end
+  end
 end
