@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'cancancan', '~> 1.15'
 gem 'faker'
+gem 'bootstrap-sass', '~> 3.3'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'

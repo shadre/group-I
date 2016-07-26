@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Wizlist</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Wizlist — Your wishlists. Not your problem.</title>
+    <meta name="description" content="">
+    <%= csrf_meta_tags -%>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag 'application', media: 'all' -%>
   </head>
   <body>
     <% if user_signed_in? %>
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+      <%= render "shared/navigation" -%>
     <% end %>
 
-    <%= flash_messages %>
+    <%= yield -%>
 
-    <%= yield %>
+    <%= javascript_include_tag 'application' %>
+    <%= render "shared/flash_messages", flash: flash %>
   </body>
 </html>

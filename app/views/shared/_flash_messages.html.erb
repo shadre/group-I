@@ -1,0 +1,23 @@
+<script>
+  $.notifyDefaults({
+    placement: {
+      from: "top",
+      align: "center"
+    },
+    offset: {
+      x: 0,
+      y: 56
+    }
+  })
+</script>
+<script>
+  $(document).ready(function() {
+    <% flash.each do |type, message| %>
+      $.notify({
+        message: "<%= message -%>"
+      }, {
+        type: "<%= type.to_s -%>"
+      });
+    <% end %>
+  });
+</script>
