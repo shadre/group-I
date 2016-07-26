@@ -1,0 +1,14 @@
+<h1><%= @wishlist.name %></h1>
+
+<p><%= @wishlist.description %></p>
+
+<p>
+  <strong>Your unique link for this whislist:</strong><br>
+  <%= wishlists_for_guest_url(@wishlist.token) %>
+</p>
+
+<h2>Gifts:</h2>
+  <ul>
+    <%= render partial: "item", collection: @wishlist.items %>
+  </ul>
+<%= link_to "Back", wishlists_path %>

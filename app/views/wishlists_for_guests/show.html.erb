@@ -1,2 +1,8 @@
-# This file, though empty, is intentionally created.
-# It's needed for WishlistsForGuestsController tests to be working correctly
+<h1><%= @wishlist.name %></h1>
+
+<p><%= @wishlist.description %></p>
+
+<h2>Gifts:</h2>
+<ul>
+  <%= render partial: "item", collection: @wishlist.items %>
+</ul>

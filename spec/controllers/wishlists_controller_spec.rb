@@ -77,6 +77,35 @@ RSpec.describe WishlistsController do
       end
     end
 
+    describe "GET #show" do
+      context "when wishlist is created by logged in user" do
+        before do
+          new_wishlist = create(:wishlist, user: controller.current_user)
+          get_show(new_wishlist.id)
+        end
+
+        it "returns 200 HTTP status code" do
+          expect(response).to have_http_status(200)
+        end
+
+        it "renders the 'show' template" do
+          expect(response).to render_template(:show)
+        end
+      end
+
+      context "when wishlist is not created by logged in user" do
+        before do
+          alice = create(:alice)
+          alices_wishlist = create(:wishlist, user_id: alice.id)
+          get_show(alices_wishlist.id)
+        end
+
+        it "should redirect to wishlists index" do
+          expect(response).to redirect_to(wishlists_path)
+        end
+      end
+    end
+
     describe "DELETE #destroy" do
       context "when wishlist exists" do
         before { delete_destroy(id: wishlist.id) }
@@ -224,6 +253,13 @@ RSpec.describe WishlistsController do
         include_examples "redirects to the 'sign_in' page"
       end
     end
+
+    describe "GET #show" do
+      let(:id) { 0 }
+      before(:each) { get_show(id) }
+
+      include_examples "redirects to the 'sign_in' page"
+    end
   end
 
   private
@@ -242,5 +278,9 @@ RSpec.describe WishlistsController do
 
   def put_update(id, wishlist_params)
     put :update, params: { id: id, wishlist: attributes_for(:wishlist, wishlist_params) }
+  end
+
+  def get_show(id)
+    get :show, params: { id: id }
   end
 end

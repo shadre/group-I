@@ -22,6 +22,13 @@ class WishlistsController < ApplicationController
     end
   end
 
+  def show
+    @wishlist = Wishlist.find(params[:id])
+    authorize! :show, @wishlist
+  rescue ActiveRecord::RecordNotFound, CanCan::AccessDenied
+    redirect_to wishlists_path, alert: t("generic_error")
+  end
+
   def destroy
     authorize! :destroy, @wishlist
     @wishlist.destroy!
