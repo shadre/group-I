@@ -5,7 +5,8 @@
 
       <p><%= item.description %></p>
 
-      <%= link_to "#", class: "btn btn-default btn-sm" do %>
+      <%= link_to Edit, edit_wishlist_item_path(@wishlist, item),
+        class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-edit"></span> Edit
       <% end %>
 

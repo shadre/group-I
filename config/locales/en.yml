@@ -20,3 +20,7 @@ en:
       success: "Wishlist was successfully deleted."
     update:
       success: "Wishlist was successfully updated."
+  items:
+    update:
+      success: "Item was successfully updated."
+      failure: "Invalid params!"

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :wishlists
   resources :wishlists_for_guests, path: "/i/", param: :token, only: [:show]
   devise_for :users, skip: [:sessions, :registrations]
 
@@ -17,5 +16,9 @@ Rails.application.routes.draw do
     post "sign_up" => "devise/registrations#create", as: :user_registration
 
     delete "sign_out" => "devise/sessions#destroy", as: :destroy_user_session
+  end
+
+  resources :wishlists do
+    resources :items, only: %i(edit update)
   end
 end
