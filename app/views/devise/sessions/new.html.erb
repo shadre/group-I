@@ -1,0 +1,55 @@
+<div class="slogan">
+  <h1 class="custom_size">WizList</h1>
+  <h3>Your wishlists. Not your problem.</h3>
+</div>
+
+<hr class="custom-width">
+
+<div class="container center-content">
+  <div class="row">
+    <div class="col-xs-6 border-right">
+      <div class="headers">
+        <h2>Log in</h2>
+      </div>
+
+      <div class="content-in-block">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, class: "form-control input-width" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, autocomplete: "off", class: "form-control input-width" %>
+          </div>
+
+          <div class="actions center-content">
+            <%= f.submit "Let me in!", class: "btn btn-success"%>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <div class="headers">
+        <h2>Sign up</h2>
+      </div>
+
+      <h3 class="padding">Sign up and you'll be able to:</h3>
+
+      <div class="content-in-block">
+        <ul class="ul-custom-settings">
+          <li class="custom-check-list">Create your own wishlist</li>
+          <li class="custom-check-list">Send a link to your wishlist to others</li>
+          <li class="custom-check-list">Get great gifts</li>
+          <li class="custom-check-list">...profit!</li>
+        </ul>
+
+        <div class="btn-sign-up">
+          <%= link_to "Sign me up!", new_user_registration_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
