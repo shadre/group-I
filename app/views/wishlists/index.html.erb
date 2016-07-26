@@ -3,7 +3,7 @@
   <ul>
     <% @wishlists.each do |wishlist| %>
       <li>
-        <%= link_to wishlist.name, "#" %>
+        <%= link_to wishlist.name, wishlist %>
         <%= link_to "Edit", edit_wishlist_path(wishlist) %>
         <%= button_to "Delete", wishlist, method: :delete %>
       </li>
