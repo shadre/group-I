@@ -4,21 +4,15 @@ RSpec.describe ItemsController do
   let(:wishlist) { create(:wishlist, user: controller.current_user) }
   let(:item) { create(:item, wishlist: wishlist) }
 
-  shared_examples "redirects to the 'sign_in' page" do
-    it "redirects to the 'sign_in' page" do
-      expect(response).to redirect_to(new_user_session_path)
+  shared_examples "redirects to" do |path|
+    it "redirects to the #{path}" do
+      expect(response).to redirect_to(send(path))
     end
   end
 
-  shared_examples "redirects to the wishlist page" do
-    it "redirects to the wishlist page" do
-      expect(response).to redirect_to(wishlist)
-    end
-  end
-
-  shared_examples "redirects to the wishlists page" do
-    it "redirects to the wishlists page" do
-      expect(response).to redirect_to(wishlists_url)
+  shared_examples "shows a flash message" do |flash_type|
+    it "shows a/an #{flash_type}" do
+      expect(flash[flash_type.to_s]).not_to be_nil
     end
   end
 
@@ -41,11 +35,8 @@ RSpec.describe ItemsController do
       context "when wishlist doesn't exist" do
         before { get_new(wishlist_id: -1) }
 
-        include_examples "redirects to the wishlists page"
-
-        it "shows an error" do
-          expect(flash[:alert]).not_to be_nil
-        end
+        include_examples "redirects to", :wishlists_path
+        include_examples "shows a flash message", :alert
       end
     end
 
@@ -53,13 +44,13 @@ RSpec.describe ItemsController do
       context "with valid parameters" do
         before { get_new(wishlist_id: wishlist.id) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
 
       context "with invalid parameters" do
         before { get_new(wishlist_id: -1) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
     end
   end
@@ -80,27 +71,22 @@ RSpec.describe ItemsController do
           expect { post_create(name: "name", wishlist_id: wishlist.id) }.to change(Item, :count).by(1)
         end
 
-        include_examples "redirects to the wishlist page"
-
-        it "shows a notice" do
-          expect(flash[:notice]).not_to be_nil
-        end
+        include_examples "redirects to", :wishlist
+        include_examples "shows a flash message", :notice
       end
 
       context "with invalid parameters" do
-        before { post_create(name: nil, wishlist_id: wishlist.id) }
+        subject! { post_create(name: nil, wishlist_id: wishlist.id) }
 
         it "doesn't change number of items" do
-          expect { post_create(name: nil, wishlist_id: wishlist.id) }.to_not change(Item, :count)
+          expect { subject }.to_not change(Item, :count)
         end
 
-        it "renders the 'new' template" do
+        it "re-renders the 'new' template" do
           expect(response).to render_template(:new)
         end
 
-        it "shows an error" do
-          expect(flash[:error]).not_to be_nil
-        end
+        include_examples "shows a flash message", :error
       end
     end
 
@@ -108,13 +94,13 @@ RSpec.describe ItemsController do
       context "with valid parameters" do
         before { post_create(name: "name", wishlist_id: wishlist.id) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
 
       context "with invalid parameters" do
         before { post_create(name: nil, wishlist_id: wishlist.id) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
     end
   end
@@ -139,22 +125,16 @@ RSpec.describe ItemsController do
         context "when item doesn't exist" do
           before { get_edit(item_id: -1, wishlist_id: wishlist.id) }
 
-          include_examples "redirects to the wishlist page"
-
-          it "shows an error" do
-            expect(flash[:alert]).not_to be_nil
-          end
+          include_examples "redirects to", :wishlist
+          include_examples "shows a flash message", :alert
         end
       end
 
       context "when wishlist doesn't exist" do
         before { get_edit(item_id: item.id, wishlist_id: -1) }
 
-        include_examples "redirects to the wishlists page"
-
-        it "shows an error" do
-          expect(flash[:alert]).not_to be_nil
-        end
+        include_examples "redirects to", :wishlists_path
+        include_examples "shows a flash message", :alert
       end
     end
 
@@ -165,13 +145,13 @@ RSpec.describe ItemsController do
       context "with valid parameters" do
         before { get_edit(item_id: item.id, wishlist_id: wishlist.id) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
 
       context "with invalid parameters" do
         before { get_edit(item_id: -1, wishlist_id: wishlist.id) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
     end
   end
@@ -192,11 +172,8 @@ RSpec.describe ItemsController do
           expect { subject }.not_to change(Item, :count)
         end
 
-        include_examples "redirects to the wishlist page"
-
-        it "shows a notice" do
-          expect(flash[:notice]).not_to be_nil
-        end
+        include_examples "redirects to", :wishlist
+        include_examples "shows a flash message", :notice
       end
 
       context "when params invalid" do
@@ -206,9 +183,7 @@ RSpec.describe ItemsController do
           expect(response).to render_template(:edit)
         end
 
-        it "shows an error" do
-          expect(flash[:error]).not_to be_nil
-        end
+        include_examples "shows a flash message", :error
       end
     end
 
@@ -216,13 +191,44 @@ RSpec.describe ItemsController do
       context "with valid parameters" do
         before { put_update(item.id, wishlist.id, name: "blablablabla") }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
 
       context "with invalid parameters" do
         before { put_update(item.id, wishlist.id, name: nil) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    context "when user is logged in" do
+      before { sign_in_user }
+
+      context "when item exists" do
+        before { delete_destroy(item_id: item.id, wishlist_id: wishlist.id) }
+
+        it "deletes the item" do
+          expect { Item.find(item.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+
+        include_examples "redirects to", :wishlist
+        include_examples "shows a flash message", :notice
+      end
+
+      context "when item doesn't exist" do
+        before { delete_destroy(item_id: -1, wishlist_id: wishlist.id) }
+
+        include_examples "redirects to", :wishlist
+        include_examples "shows a flash message", :alert
+      end
+
+      context "when wishlist doesn't exist" do
+        before { delete_destroy(item_id: item.id, wishlist_id: -1) }
+
+        include_examples "redirects to", :wishlists_path
+        include_examples "shows a flash message", :alert
       end
     end
   end
@@ -244,5 +250,9 @@ RSpec.describe ItemsController do
   def put_update(item_id, wishlist_id, item_params)
     put :update,
       params: { id: item_id, wishlist_id: wishlist_id, item: attributes_for(:item, item_params) }
+  end
+
+  def delete_destroy(item_id:, wishlist_id:)
+    delete :destroy, params: { id: item_id, wishlist_id: wishlist_id }
   end
 end

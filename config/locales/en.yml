@@ -32,6 +32,8 @@ en:
     update:
       success: "Item was successfully updated."
       failure: "Invalid params!"
+    destroy:
+      success: "Item was successfully deleted."
   reservations:
     create:
       success: "Gift was successfully reserved!"

@@ -171,7 +171,6 @@ RSpec.describe WishlistsController do
         end
 
         include_examples "redirects to", :wishlists_path
-
         include_examples "shows a flash message", :notice
       end
 
@@ -203,7 +202,6 @@ RSpec.describe WishlistsController do
         before { get_edit(id: -1) }
 
         include_examples "redirects to", :wishlists_path
-
         include_examples "shows a flash message", :alert
       end
     end
@@ -240,8 +238,7 @@ RSpec.describe WishlistsController do
           expect { subject }.not_to change(Wishlist, :count)
         end
 
-        include_examples "redirects to", :wishlists_path
-
+        include_examples "redirects to", :wishlist
         include_examples "shows a flash message", :notice
       end
 
