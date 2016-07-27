@@ -1,4 +1,12 @@
 <%= form_for(@wishlist) do |f| %>
+  <% if @wishlist.errors.any? %>
+    <ul>
+      <% @wishlist.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
