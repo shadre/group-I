@@ -1,0 +1,40 @@
+.wishlists-row {
+  -moz-column-width: 20em;
+  -webkit-column-width: 20em;
+  -moz-column-gap: 2em;
+  -webkit-column-gap: 2em;
+}
+
+.wishlist-box {
+  display: inline-block;
+  margin:  0.25rem;
+  padding:  0.25rem;
+  width:  100%;
+  text-align: center;
+}
+
+.wishlist-name {
+  padding: 0.25em;
+  text-align: center;
+}
+
+.wishlist-description {
+  padding: 1em;
+  text-align: center;
+}
+
+.wishlist-url-display {
+  padding: 0.25em;
+  margin: auto;
+  max-width: 500px;
+}
+
+.wishlist-main-buttons {
+  padding-top: 1em;
+  padding-bottom: 2em;
+  text-align: center;
+}
+
+#unique-url {
+  background-color : #fff;
+}

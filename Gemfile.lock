@@ -53,6 +53,7 @@ GEM
     builder (3.2.2)
     byebug (9.0.5)
     cancancan (1.15.0)
+    clipboard-rails (1.5.10)
     codeclimate-engine-rb (0.3.1)
       virtus (~> 1.0)
     coercible (1.0.0)
@@ -216,6 +217,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3)
   byebug
   cancancan (~> 1.15)
+  clipboard-rails (~> 1.5)
   devise
   factory_girl_rails
   faker

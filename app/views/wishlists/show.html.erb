@@ -1,14 +1,29 @@
-<h1><%= @wishlist.name %></h1>
+<div class="container">
+  <h1 class="wishlist-name"><%= @wishlist.name %></h1>
 
-<p><%= @wishlist.description %></p>
+  <p class="wishlist-description"><%= @wishlist.description %></p>
 
-<p>
-  <strong>Your unique link for this whislist:</strong><br>
-  <%= wishlists_for_guest_url(@wishlist.token) %>
-</p>
+  <div class="input-group wishlist-url-display input-group-sm">
+    <span class="input-group-addon">Link for sharing:</span>
+    <input type="text" class="form-control" id="unique-url" value="<%= wishlists_for_guest_url(@wishlist.token) %>" readonly>
+    <span class="input-group-addon btn js-clip" data-clipboard-target="#unique-url">copy</span>
+  </div>
 
-<h2>Gifts:</h2>
-  <ul>
+  <div class="wishlist-main-buttons">
+    <%= link_to "#", class: "btn btn-default" do %>
+      <span class="glyphicon glyphicon-plus"></span> Add a gift
+    <% end %>
+
+    <%= link_to edit_wishlist_path(@wishlist), class: "btn btn-default" do %>
+      <span class="glyphicon glyphicon-edit"></span> Edit list description
+    <% end %>
+
+    <%= link_to @wishlist, method: :delete, class: "btn btn-default" do %>
+      <span class="glyphicon glyphicon-remove"></span> Delete this list
+    <% end %>
+  </div>
+
+  <div class="container wishlists-row">
     <%= render partial: "item", collection: @wishlist.items %>
-  </ul>
-<%= link_to "Back", wishlists_path %>
+  </div>
+</div>
