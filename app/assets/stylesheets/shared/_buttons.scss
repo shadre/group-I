@@ -1,0 +1,20 @@
+@mixin btn-outline($color) {
+  color: $color;
+  background-color: white;
+  background-image: none;
+  border-color: $color;
+
+  &:hover {
+    color: white;
+    background-color: $color;
+    border-color: $color;
+  }
+}
+
+.btn-success-outline {
+  @include btn-outline($brand-success);
+}
+
+.btn-danger-outline {
+  @include btn-outline($brand-danger);
+}

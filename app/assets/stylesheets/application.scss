@@ -1,10 +1,13 @@
+@import "animate";
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "animate";
 
-@import "fonts";
-@import "global";
-@import "navigation";
-@import "flash_messages";
+@import "shared/global";
+@import "shared/fonts";
+@import "shared/navigation";
+@import "shared/flash_messages";
+@import "shared/buttons";
+
 @import "sign_in";
 @import "sign_up";
+@import "wishlists";

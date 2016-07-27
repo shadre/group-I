@@ -1,0 +1,39 @@
+ul.wlists {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wlist {
+  display: block;
+  position: relative;
+  border-bottom: 1px solid $gray-lighter;
+
+  &:hover {
+    background-color: #efefef;
+  }
+}
+
+.wlist.wlist-new {
+  &:hover {
+    background-color: $body-bg;
+  }
+}
+
+.wlist-name {
+  display: block;
+  padding: 3 * $padding-base-vertical $padding-base-horizontal;
+  line-height: 30px;
+}
+
+.wlist-actions {
+  display: inline-block;
+  float: right;
+  position: absolute;
+  top: 3 * $padding-base-vertical;
+  right: $padding-base-horizontal;
+
+  form {
+    display: inline-block;
+  }
+}

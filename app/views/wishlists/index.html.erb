@@ -1,15 +1,46 @@
-<h1>Wishlists</h1>
-<div>
-  <ul>
-    <% @wishlists.each do |wishlist| %>
-      <li>
-        <%= link_to wishlist.name, wishlist %>
-        <%= link_to "Edit", edit_wishlist_path(wishlist) %>
-        <%= button_to "Delete", wishlist, method: :delete %>
-      </li>
-    <% end %>
-    <li>
-      <%= link_to "Create new wishlist", new_wishlist_path %>
-    </li>
-  </ul>
+<% content_for :title, t(".your_wishlists") %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+      <ul class="wlists">
+        <li class="wlist wlist-new">
+          <span class="wlist-name"><%= t(".wishlists_count", count: @wishlists.count) -%></span>
+          <div class="wlist-actions">
+            <%= link_to t(".create_new_wishlist"), new_wishlist_path, class: "btn btn-success-outline wlist-btn" -%>
+          </div>
+        </li>
+
+        <% @wishlists.each do |wishlist| %>
+          <li class="wlist">
+            <%= link_to wishlist.name, wishlist, class: "wlist-name" -%>
+
+            <div class="wlist-actions">
+              <a class="btn btn-sm btn-primary" data-toggle="popover" data-placement="left"
+                  data-trigger="focus" tabindex="0"
+                  data-content-source="#wlist-<%= wishlist.id -%>-copy-link">
+                <%= t("copy_link") -%>
+              </a>
+              <div id="wlist-<%= wishlist.id -%>-copy-link" class="hide">
+                <div class="input-group input-group-sm">
+                  <input id="wlist-<%= wishlist.id -%>-token" class="form-control" readonly type="text"
+                      value="<%= wishlists_for_guest_url(wishlist.token) %>">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default js-clip" type="button"
+                        data-clipboard-target="#wlist-<%= wishlist.id -%>-token">
+                      <span class="glyphicon glyphicon-copy"></span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+              <%= link_to t("edit"), edit_wishlist_path(wishlist), class: "btn btn-sm btn-default" -%>
+
+              <%= button_to t("delete"), wishlist, method: :delete, class: "btn btn-sm btn-danger-outline" -%>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>

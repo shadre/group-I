@@ -1,0 +1,24 @@
+.navbar-nav {
+  width: 100%;
+
+  > li.navbar-back {
+    float: left;
+
+    > a.btn {
+      margin: 8px 0;
+      padding: 6px 12px;
+    }
+  }
+
+  > li.navbar-sign-out {
+    float: right;
+
+    form {
+      display: inline-block;
+    }
+  }
+}
+
+.navbar-email {
+  font-style: italic;
+}

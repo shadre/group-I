@@ -1,7 +1,19 @@
 en:
   generic_error: "Oops! Something went wrong."
+  back: "Back"
+  copy_link: "Copy public link"
+  edit: "Edit"
+  delete: "Delete"
   signed_in_as: "Signed in as"
+  sign_out: "Sign out"
   wishlists:
+    index:
+      your_wishlists: "Your wishlists"
+      create_new_wishlist: "Create new wishlist"
+      wishlists_count:
+        zero: "You have no wishlist. You should create some. 😉"
+        one: "You have one wishlist! 🎁"
+        other: "You have %{count} wishlists. Nice! 🎉"
     create:
       success: "Wishlist was successfully created!"
     destroy:
