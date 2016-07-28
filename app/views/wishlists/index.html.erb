@@ -36,7 +36,15 @@
 
               <%= link_to t("edit"), edit_wishlist_path(wishlist), class: "btn btn-sm btn-default" -%>
 
-              <%= button_to t("delete"), wishlist, method: :delete, class: "btn btn-sm btn-danger-outline" -%>
+              <a class="btn btn-sm btn-danger-outline btn-primary" data-toggle="popover" data-placement="left"
+                  data-trigger="focus" tabindex="0"
+                  data-content-source="#wlist-<%= wishlist.id -%>-delete">
+                <%= t("delete") -%>
+              </a>
+              <div id="wlist-<%= wishlist.id -%>-delete" class="hide">
+                <span><%= t("delete_ask") -%></span>
+                <%= button_to t("delete_confirm"), wishlist, method: :delete, class: "btn btn-sm btn-danger" -%>
+              </div>
             </div>
           </li>
         <% end %>

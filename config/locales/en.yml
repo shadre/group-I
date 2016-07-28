@@ -4,6 +4,8 @@ en:
   copy_link: "Copy public link"
   edit: "Edit"
   delete: "Delete"
+  delete_ask: "Are you sure?"
+  delete_confirm: "I'm sure"
   signed_in_as: "Signed in as"
   sign_out: "Sign out"
   wishlists:
