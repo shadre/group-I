@@ -1,4 +1,4 @@
-ActiveRecord::Schema.define(version: 20160724134850) do
+ActiveRecord::Schema.define(version: 20160727195230) do
   enable_extension "plpgsql"
 
   create_table "items", force: :cascade do |t|
@@ -8,6 +8,13 @@ ActiveRecord::Schema.define(version: 20160724134850) do
     t.datetime "updated_at",  null: false
     t.integer  "wishlist_id"
     t.index ["wishlist_id"], name: "index_items_on_wishlist_id", using: :btree
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer  "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_reservations_on_item_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -30,5 +37,6 @@ ActiveRecord::Schema.define(version: 20160724134850) do
   end
 
   add_foreign_key "items", "wishlists"
+  add_foreign_key "reservations", "items"
   add_foreign_key "wishlists", "users"
 end

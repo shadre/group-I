@@ -5,8 +5,12 @@
 
       <p><%= item.description %></p>
 
-      <%= link_to "#", class: "btn btn-default btn-sm" do %>
-        <span class="glyphicon glyphicon-gift"></span> I'll buy it!
+      <%= form_for([@wishlist, item, Reservation.new]) do |f| %>
+        <%= button_tag(type: 'submit', class: "btn btn-default btn-sm submit", disabled: item.reserved?) do %>
+          <span class="glyphicon glyphicon-gift"></span>
+
+          <%= item.reserved? ? t("gift_reserved") : t("gift_to_reserve") -%>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -9,6 +9,8 @@ en:
   signed_in_as: "Signed in as"
   sign_out: "Sign out"
   index: "My wishlists"
+  gift_reserved: "This gift is already reserved!"
+  gift_to_reserve: "I'll buy it!"
   wishlists:
     index:
       create_new_wishlist: "Create new wishlist"
@@ -30,3 +32,6 @@ en:
     update:
       success: "Item was successfully updated."
       failure: "Invalid params!"
+  reservations:
+    create:
+      success: "Gift was successfully reserved!"
