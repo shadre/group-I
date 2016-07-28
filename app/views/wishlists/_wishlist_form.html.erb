@@ -7,15 +7,14 @@
     </ul>
   <% end %>
 
-  <p>
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
-  <p>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.submit button_name %>
-  </p>
+    <%= f.text_area :description, class: "form-control", rows: "4" %>
+  </div>
+
+  <%= f.submit button_name, class: "btn btn-default btn-success pull-right"%>
 <% end %>
