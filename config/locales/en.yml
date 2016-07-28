@@ -8,9 +8,9 @@ en:
   delete_confirm: "I'm sure"
   signed_in_as: "Signed in as"
   sign_out: "Sign out"
+  index: "My wishlists"
   wishlists:
     index:
-      your_wishlists: "Your wishlists"
       create_new_wishlist: "Create new wishlist"
       wishlists_count:
         zero: "You have no wishlist. You should create some. 😉"
