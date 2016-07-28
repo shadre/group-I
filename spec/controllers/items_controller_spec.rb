@@ -10,6 +10,115 @@ RSpec.describe ItemsController do
     end
   end
 
+  shared_examples "redirects to the wishlist page" do
+    it "redirects to the wishlist page" do
+      expect(response).to redirect_to(wishlist)
+    end
+  end
+
+  shared_examples "redirects to the wishlists page" do
+    it "redirects to the wishlists page" do
+      expect(response).to redirect_to(wishlists_url)
+    end
+  end
+
+  describe "GET #new" do
+    context "when user is logged in" do
+      before { sign_in_user }
+
+      context "when wishlist exists" do
+        before { get_new(wishlist_id: wishlist.id) }
+
+        it "returns 200 OK" do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "renders the 'new' template" do
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context "when wishlist doesn't exist" do
+        before { get_new(wishlist_id: -1) }
+
+        include_examples "redirects to the wishlists page"
+
+        it "shows an error" do
+          expect(flash[:alert]).not_to be_nil
+        end
+      end
+    end
+
+    context "when not logged in" do
+      context "with valid parameters" do
+        before { get_new(wishlist_id: wishlist.id) }
+
+        include_examples "redirects to the 'sign_in' page"
+      end
+
+      context "with invalid parameters" do
+        before { get_new(wishlist_id: -1) }
+
+        include_examples "redirects to the 'sign_in' page"
+      end
+    end
+  end
+
+  describe "POST #create" do
+    context "when user is logged in" do
+      before { sign_in_user }
+
+      context "with valid parameters" do
+        before { post_create(name: "name", wishlist_id: wishlist.id) }
+
+        it "assigns an instance variable under @item" do
+          expect(assigns(:item)).to be_a(Item)
+        end
+
+        it "persists the new item" do
+          expect(assigns(:item)).to be_persisted
+          expect { post_create(name: "name", wishlist_id: wishlist.id) }.to change(Item, :count).by(1)
+        end
+
+        include_examples "redirects to the wishlist page"
+
+        it "shows a notice" do
+          expect(flash[:notice]).not_to be_nil
+        end
+      end
+
+      context "with invalid parameters" do
+        before { post_create(name: nil, wishlist_id: wishlist.id) }
+
+        it "doesn't change number of items" do
+          expect { post_create(name: nil, wishlist_id: wishlist.id) }.to_not change(Item, :count)
+        end
+
+        it "renders the 'new' template" do
+          expect(response).to render_template(:new)
+        end
+
+        it "shows an error" do
+          expect(flash[:error]).not_to be_nil
+        end
+      end
+    end
+
+    context "when user is not logged in" do
+      context "with valid parameters" do
+        before { post_create(name: "name", wishlist_id: wishlist.id) }
+
+        include_examples "redirects to the 'sign_in' page"
+      end
+
+      context "with invalid parameters" do
+        before { post_create(name: nil, wishlist_id: wishlist.id) }
+
+        include_examples "redirects to the 'sign_in' page"
+      end
+    end
+  end
+
   describe "GET #edit" do
     context "when user is logged in" do
       before { sign_in_user }
@@ -30,9 +139,7 @@ RSpec.describe ItemsController do
         context "when item doesn't exist" do
           before { get_edit(item_id: -1, wishlist_id: wishlist.id) }
 
-          it "redirects to the root page" do
-            expect(response).to redirect_to(root_url)
-          end
+          include_examples "redirects to the wishlist page"
 
           it "shows an error" do
             expect(flash[:alert]).not_to be_nil
@@ -43,9 +150,7 @@ RSpec.describe ItemsController do
       context "when wishlist doesn't exist" do
         before { get_edit(item_id: item.id, wishlist_id: -1) }
 
-        it "redirects to the root page" do
-          expect(response).to redirect_to(root_url)
-        end
+        include_examples "redirects to the wishlists page"
 
         it "shows an error" do
           expect(flash[:alert]).not_to be_nil
@@ -87,9 +192,7 @@ RSpec.describe ItemsController do
           expect { subject }.not_to change(Item, :count)
         end
 
-        it "redirects to the wishlist page" do
-          expect(response).to redirect_to(wishlist)
-        end
+        include_examples "redirects to the wishlist page"
 
         it "shows a notice" do
           expect(flash[:notice]).not_to be_nil
@@ -125,6 +228,14 @@ RSpec.describe ItemsController do
   end
 
   private
+
+  def get_new(wishlist_id:)
+    get :new, params: { wishlist_id: wishlist_id }
+  end
+
+  def post_create(custom = {})
+    post :create, params: { item: attributes_for(:item, custom), wishlist_id: custom[:wishlist_id] }
+  end
 
   def get_edit(item_id:, wishlist_id:)
     get :edit, params: { id: item_id, wishlist_id: wishlist_id }

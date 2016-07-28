@@ -10,16 +10,20 @@ class WishlistsController < ApplicationController
   def new
     @wishlist = Wishlist.new(wishlist_params)
     authorize! :new, @wishlist
+  rescue CanCan::AccessDenied
+    redirect_to wishlists_path, alert: t("generic_error")
   end
 
   def create
     @wishlist = Wishlist.new(wishlist_params)
     authorize! :create, @wishlist
-    if @wishlist.save
-      redirect_to wishlists_path, notice: t(".success")
-    else
-      render :new
-    end
+    @wishlist.save!
+    redirect_to wishlists_path, notice: t(".success")
+  rescue CanCan::AccessDenied
+    redirect_to wishlists_path, alert: t("generic_error")
+  rescue ActiveRecord::RecordInvalid
+    flash[:error] = t(".failure")
+    render :new
   end
 
   def show

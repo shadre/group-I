@@ -16,11 +16,15 @@ en:
         other: "You have %{count} wishlists. Nice! 🎉"
     create:
       success: "Wishlist was successfully created!"
+      failure: "Invalid params!"
     destroy:
       success: "Wishlist was successfully deleted."
     update:
       success: "Wishlist was successfully updated."
   items:
+    create:
+      success: "Item was successfully created."
+      failure: "Invalid params!"
     update:
       success: "Item was successfully updated."
       failure: "Invalid params!"

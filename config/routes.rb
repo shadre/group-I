@@ -19,6 +19,6 @@ Rails.application.routes.draw do
   end
 
   resources :wishlists do
-    resources :items, only: %i(edit update)
+    resources :items, only: %i(new create edit update)
   end
 end
