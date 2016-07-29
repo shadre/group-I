@@ -7,10 +7,10 @@ ul.wlists {
 .wlist {
   display: block;
   position: relative;
-  border-bottom: 1px solid $gray-lighter;
+  border-bottom: 1px solid $lime2;
 
   &:hover {
-    background-color: #efefef;
+    background-color: $wlist-hover;
   }
 }
 
@@ -24,6 +24,13 @@ ul.wlists {
   display: block;
   padding: 3 * $padding-base-vertical $padding-base-horizontal;
   line-height: 30px;
+  color: black;
+  font-size: medium;
+
+  &:hover {
+    text-decoration: none;
+    color: lime4;
+  }
 }
 
 .wlist-actions {
@@ -36,4 +43,8 @@ ul.wlists {
   form {
     display: inline-block;
   }
+}
+
+.wlist-first-name {
+  font-weight: bold;
 }

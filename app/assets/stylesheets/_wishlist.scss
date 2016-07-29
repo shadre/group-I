@@ -16,11 +16,13 @@
 .wishlist-name {
   padding: 0.25em;
   text-align: center;
+  color: $lime5;
 }
 
 .wishlist-description {
   padding: 1em;
   text-align: center;
+  color: $wishlist-desc-color;
 }
 
 .wishlist-url-display {
@@ -46,4 +48,14 @@
 
 .unreserve-button-display {
   display: inline-block;
+}
+
+.input-group-addon {
+  background-color: $lime3;
+  color: $btn-text-color;
+}
+
+.thumbnail {
+  border-color: $btn-info-color;
+  background-color: $item-box-bg;
 }

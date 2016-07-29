@@ -1,0 +1,18 @@
+$lime1: #D0D0D0;
+$lime2: #B57C9F;
+$lime3: #8D3066;
+$lime4: #66023D;
+$lime5: #420027;
+$color: white;
+$btn-default-color: darken($lime2, 20%);
+$btn-info-color: lighten($lime4, 14%);
+$btn-info-hover-color: darken($lime1, 10%);
+$wishlist-desc-color: darken($lime4, 20%);
+$btn-text-color: white;
+$wlist-hover: lighten($lime1, 13%);
+$item-box-bg: lighten($lime1, 17%);
+$brand-primary:         darken($lime1, 10%);
+$brand-success:         $lime2;
+$brand-info:            $lime3;
+$brand-warning:         $lime4;
+$brand-danger:          $lime5;

@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
       <ul class="wlists">
-        <li class="wlist wlist-new">
+        <li class="wlist wlist-new wlist-first-name">
           <span class="wlist-name"><%= t(".wishlists_count", count: @wishlists.count) -%></span>
           <div class="wlist-actions">
             <%= link_to t(".create_new_wishlist"), new_wishlist_path,
@@ -17,9 +17,9 @@
             <%= link_to wishlist.name, wishlist, class: "wlist-name" -%>
 
             <div class="wlist-actions">
-              <a class="btn btn-sm btn-primary" data-toggle="popover-with-html" data-placement="left"
-                 data-trigger="focus" tabindex="0"
-                 data-content-source="#wlist-<%= wishlist.id -%>-copy-link">
+              <a class="btn btn-sm btn-info" data-toggle="popover-with-html" data-placement="left"
+                  data-trigger="focus" tabindex="0"
+                  data-content-source="#wlist-<%= wishlist.id -%>-copy-link">
                 <%= t("copy_link") -%>
               </a>
               <div id="wlist-<%= wishlist.id -%>-copy-link" class="hide">
@@ -47,7 +47,7 @@
               <div class="wlist-<%= wishlist.id -%>-delete-confirm hide">
                 <span><%= t("delete_ask") -%></span>
                 <%= link_to t("delete_confirm"), wishlist, method: :delete,
-                    class: "btn btn-sm btn-danger" -%>
+                    class: "btn btn-sm btn-default" -%>
               </div>
             </div>
           </li>

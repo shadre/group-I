@@ -1,5 +1,11 @@
+.navbar-default {
+  background-color: $lime3;
+  border-color: $lime3;
+}
+
 .navbar-nav {
   width: 100%;
+  color: white;
 
   > li.navbar-back {
     float: left;
@@ -16,9 +22,22 @@
     form {
       display: inline-block;
     }
+
+    > span.navbar-text {
+      color: white;
+    }
   }
 }
 
 .navbar-email {
-  font-style: italic;
+  font-weight: bold;
+  color: $lime1;
+}
+
+.navbar-text {
+  color: white;
+}
+
+.nav.navbar-nav .custom-style {
+  color: white;
 }

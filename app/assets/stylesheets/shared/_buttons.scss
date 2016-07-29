@@ -1,11 +1,11 @@
 @mixin btn-outline($color) {
-  color: $color;
-  background-color: white;
+  color: $btn-text-color;
+  background-color: $lime2;
   background-image: none;
-  border-color: $color;
+  border-color: $lime2;
 
   &:hover {
-    color: white;
+    color: $lime5;
     background-color: $color;
     border-color: $color;
   }
@@ -17,4 +17,84 @@
 
 .btn-danger-outline {
   @include btn-outline($brand-danger);
+}
+
+.btn-success {
+  color: $btn-text-color;
+  background-color: $lime3;
+  border-color: $lime3;
+
+  &:hover {
+    color: $lime1;
+    background-color: $lime5;
+    border-color: $lime5;
+  }
+
+  &:active,
+  &:visited,
+  &:focus {
+    color: $btn-text-color;
+    background-color: $lime3;
+    border-color: $lime3;
+  }
+}
+
+.btn-primary {
+  color: $btn-text-color;
+  background-color: $lime5;
+  border-color: $lime5;
+
+  &:hover {
+    color: $btn-text-color;
+    background-color: $lime2;
+    border-color: $lime2;
+  }
+
+  &:active,
+  &:visited,
+  &:focus {
+    color: $btn-text-color;
+    background-color: $lime5;
+    border-color: $lime5;
+  }
+}
+
+.btn-default {
+  color: $btn-text-color;
+  background-color: $btn-default-color;
+  border-color: $lime2;
+
+  &:hover {
+    color: $btn-text-color;
+    background-color: $lime3;
+    border-color: $lime3;
+  }
+
+  &:active,
+  &:visited,
+  &:focus {
+    color: $btn-text-color;
+    background-color: $btn-default-color;
+    border-color: $btn-default-color;
+  }
+}
+
+.btn-info {
+  color: $btn-text-color;
+  background-color: $btn-info-color;
+  border-color: $btn-info-color;
+
+  &:hover {
+    color: $btn-text-color;
+    background-color: $btn-info-hover-color;
+    border-color: $btn-info-hover-color;
+  }
+
+  &:active,
+  &:visited,
+  &:focus {
+    color: $btn-text-color;
+    background-color: $btn-info-color;
+    border-color: $btn-info-color;
+  }
 }

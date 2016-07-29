@@ -11,8 +11,7 @@
   </div>
 
   <div class="wishlist-main-buttons">
-    <%= link_to new_wishlist_item_path(@wishlist),
-        class: "btn btn-success-outline" do %>
+    <%= link_to new_wishlist_item_path(@wishlist), class: "btn btn-default" do %>
       <span class="glyphicon glyphicon-plus"></span> Add a gift
     <% end %>
 
@@ -28,7 +27,7 @@
     <div class="wlist-<%= @wishlist.id -%>-delete-confirm hide">
       <span><%= t("delete_ask") -%></span>
       <%= link_to t("delete_confirm"), @wishlist, method: :delete,
-          class: "btn btn-sm btn-danger" -%>
+          class: "btn btn-sm btn-default" -%>
     </div>
   </div>
 

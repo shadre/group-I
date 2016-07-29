@@ -1,5 +1,5 @@
 .border-right {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid white;
   height: 0;
   padding-bottom: 34%;
 }
@@ -43,6 +43,7 @@
 
   h1 {
     font-size: 70px;
+    color: $lime5;
   }
 }
 
