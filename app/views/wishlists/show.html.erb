@@ -3,7 +3,7 @@
 
   <p class="wishlist-description"><%= @wishlist.description %></p>
 
-  <div class="input-group wishlist-url-display input-group-sm">
+  <div class="input-group wishlist-url-display">
     <span class="input-group-addon">Link for sharing:</span>
     <input type="text" class="form-control" id="unique-url"
            value="<%= wishlists_for_guest_url(@wishlist.token) %>" readonly>
@@ -12,7 +12,7 @@
 
   <div class="wishlist-main-buttons">
     <%= link_to new_wishlist_item_path(@wishlist),
-        class: "btn btn-default" do %>
+        class: "btn btn-success-outline" do %>
       <span class="glyphicon glyphicon-plus"></span> Add a gift
     <% end %>
 
@@ -20,7 +20,7 @@
       <span class="glyphicon glyphicon-edit"></span> Edit list description
     <% end %>
 
-    <a class="btn btn-sm btn-danger-outline btn-primary" data-toggle="popover-with-html"
+    <a class="btn btn-danger-outline btn-primary" data-toggle="popover-with-html"
        data-placement="top" data-trigger="focus" tabindex="0"
        data-content-source=".wlist-<%= @wishlist.id -%>-delete-confirm">
       <span class="glyphicon glyphicon-remove"></span> Delete this list
