@@ -7,12 +7,12 @@
 
 <div class="container center-content">
   <div class="row">
-    <div class="col-xs-6 border-right">
-      <div class="headers">
+    <div class="col-md-6 border-right">
+      <div class="header-col-left">
         <h2>Log in</h2>
       </div>
 
-      <div class="content-in-block">
+      <div class="content-in-block col-xs-8 col-xs-offset-2">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field form-group">
             <%= f.label :email %><br />
@@ -31,23 +31,25 @@
       </div>
     </div>
 
-    <div class="col-xs-6">
-      <div class="headers">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-margin-top-right col-margin-bottom-right">
+      <div class="header-col-right">
         <h2>Sign up</h2>
       </div>
 
-      <h3 class="padding">Sign up and you'll be able to:</h3>
+      <div class="col-xs-8 col-xs-offset-2">
+        <h3 class="padding">Sign up and you'll be able to:</h3>
 
-      <div class="content-in-block">
-        <ul class="ul-custom-settings">
-          <li class="custom-check-list">Create your own wishlist</li>
-          <li class="custom-check-list">Send a link to your wishlist to others</li>
-          <li class="custom-check-list">Get great gifts</li>
-          <li class="custom-check-list">...profit!</li>
-        </ul>
+        <div class="content-in-block">
+          <ul class="ul-custom-settings">
+            <li class="custom-check-list">Create your own wishlist</li>
+            <li class="custom-check-list">Send a link to your wishlist to others</li>
+            <li class="custom-check-list">Get great gifts</li>
+            <li class="custom-check-list">...profit!</li>
+          </ul>
 
-        <div class="btn-sign-up">
-          <%= link_to "Sign me up!", new_user_registration_path, class: "btn btn-primary" %>
+          <div class="btn-sign-up">
+            <%= link_to "Sign me up!", new_user_registration_path, class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
     </div>

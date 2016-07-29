@@ -1,11 +1,39 @@
 .border-right {
-  padding-right: 10px;
   border-right: 1px solid #ccc;
-  height: 400px;
+  height: 0;
+  padding-bottom: 34%;
 }
 
-.headers {
-  padding-bottom: 30px;
+.header-col-left {
+  margin-bottom: 5%;
+}
+
+.header-col-right {
+  margin-bottom: 2%;
+}
+
+@media (max-width: $screen-xs-max) {
+  .col-margin-top-right {
+    margin-top: 50px;
+  }
+
+  .border-right {
+    border: none;
+  }
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  .col-margin-top-right {
+    margin-top: 5%;
+  }
+
+  .border-right {
+    border: none;
+  }
+}
+
+.col-margin-bottom-right {
+  margin-bottom: 50px;
 }
 
 .slogan {
@@ -24,7 +52,7 @@ hr.custom-width {
 
 .btn-sign-up {
   text-align: center;
-  padding-top: 23px;
+  padding-top: 40px;
 }
 
 h3.padding {
@@ -32,7 +60,6 @@ h3.padding {
 }
 
 .input-width {
-  width: 300px;
   height: 40px;
   margin-bottom: 30px;
 }
