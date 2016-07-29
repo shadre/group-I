@@ -1,11 +1,23 @@
 require "rails_helper"
 
 RSpec.describe WishlistsController do
-  context "when user is logged in" do
-    before { sign_in_user }
-    let(:wishlist) { create(:wishlist, user: controller.current_user) }
+  let(:wishlist) { create(:wishlist, user: controller.current_user) }
 
-    describe "GET #index" do
+  shared_examples "redirects to" do |path_helper|
+    it "redirects to the #{path_helper}" do
+      expect(response).to redirect_to(send(path_helper))
+    end
+  end
+
+  shared_examples "shows a flash message" do |flash_type|
+    it "shows a/an #{flash_type}" do
+      expect(flash[flash_type.to_s]).not_to be_nil
+    end
+  end
+
+  describe "GET #index" do
+    context "when user is logged in" do
+      before { sign_in_user }
       before { get :index }
 
       it "returns 200 OK" do
@@ -17,7 +29,16 @@ RSpec.describe WishlistsController do
       end
     end
 
-    describe "GET #new" do
+    context "when not logged in" do
+      before { get :index }
+
+      include_examples "redirects to", :new_user_session_path
+    end
+  end
+
+  describe "GET #new" do
+    context "when user is logged in" do
+      before { sign_in_user }
       before { get :new }
 
       it "returns 200 OK" do
@@ -33,7 +54,17 @@ RSpec.describe WishlistsController do
       end
     end
 
-    describe "POST #create" do
+    context "when not logged in" do
+      before { get :new }
+
+      include_examples "redirects to", :new_user_session_path
+    end
+  end
+
+  describe "POST #create" do
+    context "when user is logged in" do
+      before { sign_in_user }
+
       context "with valid parameters" do
         before { post_create }
 
@@ -50,9 +81,7 @@ RSpec.describe WishlistsController do
           expect(response).to be_redirect
         end
 
-        it "redirects to the wishlists index page" do
-          expect(response).to redirect_to(wishlists_path)
-        end
+        include_examples "redirects to", :wishlists_path
       end
 
       context "with invalid parameters" do
@@ -77,7 +106,25 @@ RSpec.describe WishlistsController do
       end
     end
 
-    describe "GET #show" do
+    context "when not logged in" do
+      context "with valid parameters" do
+        before { post_create }
+
+        include_examples "redirects to", :new_user_session_path
+      end
+
+      context "with invalid parameters" do
+        before { post_create(name: nil) }
+
+        include_examples "redirects to", :new_user_session_path
+      end
+    end
+  end
+
+  describe "GET #show" do
+    context "when user is logged in" do
+      before { sign_in_user }
+
       context "when wishlist is created by logged in user" do
         before do
           new_wishlist = create(:wishlist, user: controller.current_user)
@@ -100,13 +147,22 @@ RSpec.describe WishlistsController do
           get_show(alices_wishlist.id)
         end
 
-        it "should redirect to wishlists index" do
-          expect(response).to redirect_to(wishlists_path)
-        end
+        include_examples "redirects to", :wishlists_path
       end
     end
 
-    describe "DELETE #destroy" do
+    context "when not logged in" do
+      let(:id) { 0 }
+      before(:each) { get_show(id) }
+
+      include_examples "redirects to", :new_user_session_path
+    end
+  end
+
+  describe "DELETE #destroy" do
+    context "when user is logged in" do
+      before { sign_in_user }
+
       context "when wishlist exists" do
         before { delete_destroy(id: wishlist.id) }
 
@@ -114,25 +170,23 @@ RSpec.describe WishlistsController do
           expect { Wishlist.find(wishlist.id) }.to raise_error(ActiveRecord::RecordNotFound)
         end
 
-        it "redirects to the wishlists index page" do
-          expect(response).to redirect_to(wishlists_url)
-        end
+        include_examples "redirects to", :wishlists_path
 
-        it "shows a notice" do
-          expect(flash[:notice]).not_to be_nil
-        end
+        include_examples "shows a flash message", :notice
       end
 
       context "when wishlist doesn't exist" do
         before { delete_destroy(id: -1) }
 
-        it "redirects to the wishlists index page" do
-          expect(response).to redirect_to(wishlists_path)
-        end
+        include_examples "redirects to", :wishlists_path
       end
     end
+  end
 
-    describe "GET #edit" do
+  describe "GET #edit" do
+    context "when user is logged in" do
+      before { sign_in_user }
+
       context "when wishlist exists" do
         before { get_edit(id: wishlist.id) }
 
@@ -148,18 +202,32 @@ RSpec.describe WishlistsController do
       context "when wishlist doesn't exist" do
         before { get_edit(id: -1) }
 
-        it "redirects to the wishlists index page" do
-          expect(response).to redirect_to(wishlists_path)
-        end
+        include_examples "redirects to", :wishlists_path
 
-        it "shows an error" do
-          expect(flash[:alert]).not_to be_nil
-        end
+        include_examples "shows a flash message", :alert
       end
     end
 
-    describe "PUT #update" do
+    context "when not logged in" do
+      context "with valid parameters" do
+        before { get_edit(id: wishlist.id) }
+
+        include_examples "redirects to", :new_user_session_path
+      end
+
+      context "with invalid parameters" do
+        before { get_edit(id: -1) }
+
+        include_examples "redirects to", :new_user_session_path
+      end
+    end
+  end
+
+  describe "PUT #update" do
+    context "when user is logged in" do
       let(:new_params) { { name: "name" } }
+
+      before { sign_in_user }
 
       context "when params valid" do
         subject! { put_update(wishlist.id, new_params) }
@@ -172,13 +240,9 @@ RSpec.describe WishlistsController do
           expect { subject }.not_to change(Wishlist, :count)
         end
 
-        it "redirects to the wishlists index page" do
-          expect(response).to redirect_to(wishlists_url)
-        end
+        include_examples "redirects to", :wishlists_path
 
-        it "shows a notice" do
-          expect(flash[:notice]).not_to be_nil
-        end
+        include_examples "shows a flash message", :notice
       end
 
       context "when params invalid" do
@@ -189,76 +253,19 @@ RSpec.describe WishlistsController do
         end
       end
     end
-  end
 
-  context "when not logged in" do
-    let(:wishlist_id) { create(:wishlist).id }
-
-    shared_examples "redirects to the 'sign_in' page" do
-      it "redirects to the 'sign_in' page" do
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
-    describe "GET #index" do
-      before { get :index }
-
-      include_examples "redirects to the 'sign_in' page"
-    end
-
-    describe "GET #new" do
-      before { get :new }
-
-      include_examples "redirects to the 'sign_in' page"
-    end
-
-    describe "POST #create" do
+    context "when not logged in" do
       context "with valid parameters" do
-        before { post_create }
+        before { put_update(wishlist.id, name: "blablablabla") }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
 
       context "with invalid parameters" do
-        before { post_create(name: nil) }
+        before { put_update(wishlist.id, name: nil) }
 
-        include_examples "redirects to the 'sign_in' page"
+        include_examples "redirects to", :new_user_session_path
       end
-    end
-
-    describe "GET #edit" do
-      context "with valid parameters" do
-        before { get_edit(id: wishlist_id) }
-
-        include_examples "redirects to the 'sign_in' page"
-      end
-
-      context "with invalid parameters" do
-        before { get_edit(id: -1) }
-
-        include_examples "redirects to the 'sign_in' page"
-      end
-    end
-
-    describe "PUT #update" do
-      context "with valid parameters" do
-        before { put_update(wishlist_id, name: "blablablabla") }
-
-        include_examples "redirects to the 'sign_in' page"
-      end
-
-      context "with invalid parameters" do
-        before { put_update(wishlist_id, name: nil) }
-
-        include_examples "redirects to the 'sign_in' page"
-      end
-    end
-
-    describe "GET #show" do
-      let(:id) { 0 }
-      before(:each) { get_show(id) }
-
-      include_examples "redirects to the 'sign_in' page"
     end
   end
 
