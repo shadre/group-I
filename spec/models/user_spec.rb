@@ -65,6 +65,8 @@ RSpec.describe User do
     let(:alice) { create(:alice) }
     let(:bob_wishlist_item) { create(:item, wishlist: bob.wishlists.first) }
     let(:alice_wishlist_item) { create(:item, wishlist: alice.wishlists.first) }
+    let(:alice_reservation) { create(:reservation, item: alice_wishlist_item) }
+    let(:bob_reservation) { create(:reservation, item: bob_wishlist_item) }
 
     subject(:ability) { Ability.new(bob) }
 
@@ -78,5 +80,7 @@ RSpec.describe User do
     it { is_expected.not_to be_able_to(:update, alice_wishlist_item) }
     it { is_expected.to be_able_to(:destroy, bob_wishlist_item) }
     it { is_expected.not_to be_able_to(:destroy, alice_wishlist_item) }
+    it { is_expected.to be_able_to(:destroy, bob_reservation) }
+    it { is_expected.not_to be_able_to(:destroy, alice_reservation) }
   end
 end

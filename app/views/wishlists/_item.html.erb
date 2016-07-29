@@ -5,8 +5,7 @@
 
       <p><%= item.description %></p>
 
-      <%= link_to edit_wishlist_item_path(@wishlist, item),
-          class: "btn btn-default btn-sm" do %>
+      <%= link_to edit_wishlist_item_path(@wishlist, item), class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-edit"></span> Edit
       <% end %>
 
@@ -22,9 +21,12 @@
             method: :delete, class: "btn btn-sm btn-danger" -%>
       </div>
 
-      <%= link_to "#", class: "btn btn-default btn-sm" do %>
-        <span class="glyphicon glyphicon-minus-sign"></span> Unreserve
-      <% end %>
+      <div class="unreserve-button-display">
+        <%= button_to([@wishlist, item, item.reservation], type: "submit", class: "btn btn-default btn-sm", method: :delete, disabled: !item.reserved?) do %>
+          <span class="glyphicon glyphicon-minus-sign"></span>
+          <%= item.reserved? ? t("reserved") : t("unreserved") %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

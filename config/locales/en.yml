@@ -11,6 +11,8 @@ en:
   index: "My wishlists"
   gift_reserved: "This gift is already reserved!"
   gift_to_reserve: "I'll buy it!"
+  reserved: "Unreserve"
+  unreserved: "Not reserved yet"
   wishlists:
     index:
       create_new_wishlist: "Create new wishlist"
@@ -37,3 +39,5 @@ en:
   reservations:
     create:
       success: "Gift was successfully reserved!"
+    destroy:
+      success: "Reservation was successfully cancelled."
