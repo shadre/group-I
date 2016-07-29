@@ -1,3 +1,6 @@
+AllCops:
+  RubyTargetVersion: 2.3.1
+
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
@@ -92,6 +95,9 @@ Metrics/LineLength:
     - https
 
 ##################### Rails ##################################
+
+Rails:
+  Enabled: true
 
 AllCops:
   Exclude:
