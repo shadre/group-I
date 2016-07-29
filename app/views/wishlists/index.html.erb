@@ -7,7 +7,7 @@
         <li class="wlist wlist-new">
           <span class="wlist-name"><%= t(".wishlists_count", count: @wishlists.count) -%></span>
           <div class="wlist-actions">
-            <%= link_to t(".create_new_wishlist"), new_wishlist_path, class: "btn btn-success-outline wlist-btn" -%>
+            <%= link_to t(".create_new_wishlist"), new_wishlist_path, class: "btn btn-sm btn-success-outline" -%>
           </div>
         </li>
 
@@ -16,18 +16,18 @@
             <%= link_to wishlist.name, wishlist, class: "wlist-name" -%>
 
             <div class="wlist-actions">
-              <a class="btn btn-sm btn-primary" data-toggle="popover" data-placement="left"
-                  data-trigger="focus" tabindex="0"
-                  data-content-source="#wlist-<%= wishlist.id -%>-copy-link">
+              <a class="btn btn-sm btn-primary" data-toggle="popover-with-html" data-placement="left"
+                 data-trigger="focus" tabindex="0"
+                 data-content-source="#wlist-<%= wishlist.id -%>-copy-link">
                 <%= t("copy_link") -%>
               </a>
               <div id="wlist-<%= wishlist.id -%>-copy-link" class="hide">
                 <div class="input-group input-group-sm">
                   <input id="wlist-<%= wishlist.id -%>-token" class="form-control" readonly type="text"
-                      value="<%= wishlists_for_guest_url(wishlist.token) %>">
+                         value="<%= wishlists_for_guest_url(wishlist.token) %>">
                   <span class="input-group-btn">
                     <button class="btn btn-default js-clip" type="button"
-                        data-clipboard-target="#wlist-<%= wishlist.id -%>-token">
+                            data-clipboard-target="#wlist-<%= wishlist.id -%>-token">
                       <span class="glyphicon glyphicon-copy"></span>
                     </button>
                   </span>
@@ -36,14 +36,14 @@
 
               <%= link_to t("edit"), edit_wishlist_path(wishlist), class: "btn btn-sm btn-default" -%>
 
-              <a class="btn btn-sm btn-danger-outline btn-primary" data-toggle="popover" data-placement="left"
-                  data-trigger="focus" tabindex="0"
-                  data-content-source="#wlist-<%= wishlist.id -%>-delete">
+              <a class="btn btn-sm btn-danger-outline btn-primary" data-toggle="popover-with-html"
+                 data-placement="left" data-trigger="focus" tabindex="0"
+                 data-content-source=".wlist-<%= wishlist.id -%>-delete-confirm">
                 <%= t("delete") -%>
               </a>
-              <div id="wlist-<%= wishlist.id -%>-delete" class="hide">
+              <div class="wlist-<%= wishlist.id -%>-delete-confirm hide">
                 <span><%= t("delete_ask") -%></span>
-                <%= button_to t("delete_confirm"), wishlist, method: :delete, class: "btn btn-sm btn-danger" -%>
+                <%= link_to t("delete_confirm"), wishlist, method: :delete, class: "btn btn-sm btn-danger" -%>
               </div>
             </div>
           </li>

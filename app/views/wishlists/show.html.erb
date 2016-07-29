@@ -18,9 +18,15 @@
       <span class="glyphicon glyphicon-edit"></span> Edit list description
     <% end %>
 
-    <%= link_to @wishlist, method: :delete, class: "btn btn-default" do %>
+    <a class="btn btn-sm btn-danger-outline btn-primary" data-toggle="popover-with-html"
+       data-placement="top" data-trigger="focus" tabindex="0"
+       data-content-source=".wlist-<%= @wishlist.id -%>-delete-confirm">
       <span class="glyphicon glyphicon-remove"></span> Delete this list
-    <% end %>
+    </a>
+    <div class="wlist-<%= @wishlist.id -%>-delete-confirm hide">
+      <span><%= t("delete_ask") -%></span>
+      <%= link_to t("delete_confirm"), @wishlist, method: :delete, class: "btn btn-sm btn-danger" -%>
+    </div>
   </div>
 
   <div class="container wishlists-row">
