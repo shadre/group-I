@@ -76,5 +76,7 @@ RSpec.describe User do
     it { is_expected.not_to be_able_to(:update, alice.wishlists.first) }
     it { is_expected.to be_able_to(:update, bob_wishlist_item) }
     it { is_expected.not_to be_able_to(:update, alice_wishlist_item) }
+    it { is_expected.to be_able_to(:destroy, bob_wishlist_item) }
+    it { is_expected.not_to be_able_to(:destroy, alice_wishlist_item) }
   end
 end

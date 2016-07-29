@@ -50,7 +50,7 @@ class WishlistsController < ApplicationController
   def update
     authorize! :update, @wishlist
     @wishlist.update_attributes!(wishlist_params)
-    redirect_to wishlists_path, notice: t(".success")
+    redirect_to @wishlist, notice: t(".success")
   rescue CanCan::AccessDenied
     redirect_to wishlists_path, alert: t("generic_error")
   rescue ActiveRecord::RecordInvalid

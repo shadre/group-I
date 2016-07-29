@@ -6,13 +6,21 @@
       <p><%= item.description %></p>
 
       <%= link_to edit_wishlist_item_path(@wishlist, item),
-        class: "btn btn-default btn-sm" do %>
+          class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-edit"></span> Edit
       <% end %>
 
-      <%= link_to "#", class: "btn btn-default btn-sm" do %>
+      <a class="btn btn-sm btn-danger-outline btn-primary" data-toggle="popover-with-html"
+         data-placement="bottom" data-trigger="focus" tabindex="0"
+         data-content-source=".item-<%= item.id -%>-delete-confirm">
         <span class="glyphicon glyphicon-remove"></span> Delete
-      <% end %>
+      </a>
+      <div class="item-<%= item.id -%>-delete-confirm hide">
+        <%= t("delete_ask") -%>
+        <%= link_to t("delete_confirm"),
+            wishlist_item_path(wishlist_id: @wishlist.id, id: item.id),
+            method: :delete, class: "btn btn-sm btn-danger" -%>
+      </div>
 
       <%= link_to "#", class: "btn btn-default btn-sm" do %>
         <span class="glyphicon glyphicon-minus-sign"></span> Unreserve
