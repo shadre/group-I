@@ -7,7 +7,10 @@
     <span class="input-group-addon">Link for sharing:</span>
     <input type="text" class="form-control" id="unique-url"
            value="<%= wishlists_for_guest_url(@wishlist.token) %>" readonly>
-    <span class="input-group-addon btn js-clip" data-clipboard-target="#unique-url">copy</span>
+    <span class="input-group-addon btn js-clip"
+          data-clipboard-target="#unique-url">
+      <span class="glyphicon glyphicon-copy"></span> copy
+    </span>
   </div>
 
   <div class="wishlist-main-buttons">
